@@ -1,9 +1,34 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
 
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(title: 'named routes', initialRoute: '/', routes: {
+    '/': (context) => const MyApp(),
+    '/food': (context) => const Food(),
+  }));
+}
+
+class Food extends StatelessWidget {
+  const Food({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+          appBar: AppBar(
+        toolbarHeight: 120,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: const Text("test"),
+            )
+          ],
+        ),
+      )),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -58,6 +83,11 @@ class MyApp extends StatelessWidget {
                           height: 70,
                           child: Column(
                             children: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/food');
+                                  },
+                                  child: const Text('test')),
                               const Image(
                                 image: AssetImage("images/feature/food.png"),
                                 width: 60,
